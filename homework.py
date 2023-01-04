@@ -49,9 +49,9 @@ def send_message(bot, message):
 
 
 def get_api_answer(timestamp):
-    """ Запрос к яндекс-API и возвращение ответа."""
+    """Запрос к яндекс-API и возвращение ответа."""
     try:
-        timestamp = timestamp or 0
+        timestamp = timestamp or int(time.time())
         params = {'from_date': timestamp}
         logging.info(f'Отправка запроса на {ENDPOINT} с параметрами {params}')
         response = requests.get(ENDPOINT, headers=HEADERS, params=params)
