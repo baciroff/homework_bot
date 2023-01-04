@@ -118,7 +118,7 @@ def main():
         sys.exit()
 
     bot = telegram.Bot(token=TELEGRAM_TOKEN)
-    timestamp = int(time.time())
+    timestamp = 1549962000
     status = None
     message = None
 
@@ -127,7 +127,7 @@ def main():
             api_answer = get_api_answer(timestamp)
             check_response(api_answer)
             if len(api_answer['homeworks']) != 0:
-                new_status = parse_status(api_answer['homeworks'][-1])
+                new_status = parse_status(api_answer['homeworks'][0])
                 if new_status != status:
                     status = new_status
                     send_message(bot, status)
