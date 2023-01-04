@@ -30,7 +30,7 @@ HOMEWORK_VERDICTS = {
 
 
 def check_tokens():
-    """Проверяет наличие переменных окружения"""
+    """Проверяет наличие переменных окружения."""
     list_env = [
         PRACTICUM_TOKEN,
         TELEGRAM_TOKEN,
@@ -40,7 +40,7 @@ def check_tokens():
 
 
 def send_message(bot, message):
-    """Отправка сообщения в телеграм"""
+    """Отправка сообщения в телеграм."""
     try:
         logging.debug('Сообщение отправлено')
         bot.send_message(TELEGRAM_CHAT_ID, message)
@@ -49,9 +49,9 @@ def send_message(bot, message):
 
 
 def get_api_answer(timestamp):
-    """ Запрос к яндекс-API и возвращение ответа"""
+    """ Запрос к яндекс-API и возвращение ответа."""
     try:
-        timestamp = timestamp or int(time.time())
+        timestamp = timestamp or 0
         params = {'from_date': timestamp}
         logging.info(f'Отправка запроса на {ENDPOINT} с параметрами {params}')
         response = requests.get(ENDPOINT, headers=HEADERS, params=params)
@@ -63,7 +63,7 @@ def get_api_answer(timestamp):
 
 
 def check_response(response):
-    """Проверка полученного  ответа от Endpoint"""
+    """Проверка полученного  ответа от Endpoint."""
     if not response:
         message = 'Содержит пустой словарь'
         logging.error(message)
@@ -86,7 +86,7 @@ def check_response(response):
 
 
 def parse_status(homework):
-    """Извлекает из информации о домашней работе статус работы"""
+    """Извлекает из информации о домашней работе статус работы."""
     if not homework.get('homework_name'):
         homework_name = 'NoName'
         logging.warning('Отсутствует имя домашней работы')
@@ -100,7 +100,6 @@ def parse_status(homework):
         logging.error(message)
         raise ParseStatusError(message)
 
-
     verdict = HOMEWORK_VERDICTS.get(homework_status)
     if homework_status not in HOMEWORK_VERDICTS:
         message = 'Недокументированный статус домашней работы'
@@ -111,9 +110,6 @@ def parse_status(homework):
 
 def main():
     """Основная логика работы бота."""
-    last_send = {
-        'error': None,
-    }
     if not check_tokens():
         logging.critical(
             'Отсутствует обязательная переменная окружения.\n'
