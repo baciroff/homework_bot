@@ -13,3 +13,11 @@ class ParseStatusError(Exception):
             f'Парсинг ответа API: {text}'
         )
         super().__init__(message)
+
+
+class RequestExceptionError(Exception):
+    def __init__(self, text):
+        message = (
+            f'Проверка ответа API: {text}'
+        )
+        super().__init__(message)
