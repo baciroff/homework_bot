@@ -8,7 +8,7 @@ import telegram
 from dotenv import load_dotenv
 from http import HTTPStatus
 
-from exceptions import (HTTPRequestError, ParseStatusError, 
+from exceptions import (HTTPRequestError, ParseStatusError,
                         RequestExceptionError)
 
 load_dotenv()
